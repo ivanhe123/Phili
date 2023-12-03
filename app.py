@@ -137,6 +137,8 @@ if uploaded_file is not None:
     with col2:
         st.title('结果')
         final = scan(image)
+        blockSize = 11
+        C = 2
         if option == "普通":
             st.image(final, channels='BGR', use_column_width=True)
         elif option == "Mean":
