@@ -128,14 +128,29 @@ if uploaded_file is not None:
     image = cv2.imdecode(file_bytes, 1)
     h, w = image.shape[:2]
     h_, w_ = int(h * 400 / w), 400
-
+    option = st.selectbox(
+        '扫描方式',
+        ('普通','Mean', 'Gaussian'))
     with col1:
         st.title('原始图片')
         st.image(image, channels='BGR', use_column_width=True)
     with col2:
         st.title('结果')
         final = scan(image)
-        st.image(final, channels='BGR', use_column_width=True)
+        blockSize = st.slider('BlockSize', 0, 100, 11)
+        C = st.slider('C', 0, 100, 2)
+        if option = "普通"
+            st.image(final, channels='BGR', use_column_width=True)
+        elif option = "Mean":
+            final = cv2.medianBlur(final,5)
+            th2 = cv2.adaptiveThreshold(final,255,cv2.ADAPTIVE_THRESH_MEAN_C,\
+            cv2.THRESH_BINARY,blockfSize,C)
+            st.image(th2, use_column_width=True)
+        else:
+            final = cv2.medianBlur(final,5)
+            th3 = cv2.adaptiveThreshold(final,255,cv2.ADAPTIVE_THRESH_GAUSSIAN_C,\
+            cv2.THRESH_BINARY,blockfSize,C)
+            st.image(th3, use_column_width=True)
     if final is not None:
         # Display link.
         result = Image.fromarray(final[:, :, ::-1])
