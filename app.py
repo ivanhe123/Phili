@@ -120,10 +120,10 @@ def get_image_download_link(img, filename, text):
 
 
 # Set title.
-st.sidebar.title('Document Scanner')
+st.sidebar.title('Phili生日礼物')
 
 # Specify canvas parameters in application
-uploaded_file = st.sidebar.file_uploader("Upload Image of Document:", type=["png", "jpg"])
+uploaded_file = st.sidebar.file_uploader("上传一个图片：", type=["png", "jpg"])
 image = None
 final = None
 col1, col2 = st.columns(2)
@@ -133,48 +133,16 @@ if uploaded_file is not None:
     # Convert the file to an opencv image.
     file_bytes = np.asarray(bytearray(uploaded_file.read()), dtype=np.uint8)
     image = cv2.imdecode(file_bytes, 1)
-
-    manual = st.sidebar.checkbox('Adjust Manually', False)
     h, w = image.shape[:2]
     h_, w_ = int(h * 400 / w), 400
 
-    if manual:
-
-        st.subheader('Select the 4 corners')
-        st.markdown('### Double-Click to reset last point, Right-Click to select')
-
-        # Create a canvas component
-        canvas_result = st_canvas(
-            fill_color="rgba(255, 165, 0, 0.3)",  # Fixed fill color with some opacity
-            stroke_width=3,
-            background_image=Image.open(uploaded_file).resize((h_, w_)),
-            update_streamlit=True,
-            height=h_,
-            width=w_,
-            drawing_mode='polygon',
-            key="canvas",
-        )
-        st.sidebar.caption('Happy with the manual selection?')
-        if st.sidebar.button('Get Scanned'):
-            # Do something interesting with the image data and paths
-            points = order_points([i[1:3] for i in canvas_result.json_data['objects'][0]['path'][:4]])
-            points = np.multiply(points, w / 400)
-
-            dest = find_dest(points)
-
-            # Getting the homography.
-            M = cv2.getPerspectiveTransform(np.float32(points), np.float32(dest))
-            # Perspective transform using homography.
-            final = cv2.warpPerspective(image, M, (dest[2][0], dest[2][1]), flags=cv2.INTER_LINEAR)
-            st.image(final, channels='BGR', use_column_width=True)
-    else:
-        with col1:
-            st.title('Input')
-            st.image(image, channels='BGR', use_column_width=True)
-        with col2:
-            st.title('Scanned')
-            final = scan(image)
-            st.image(final, channels='BGR', use_column_width=True)
+    with col1:
+        st.title('Input')
+        st.image(image, channels='BGR', use_column_width=True)
+    with col2:
+        st.title('Scanned')
+        final = scan(image)
+        st.image(final, channels='BGR', use_column_width=True)
     if final is not None:
         # Display link.
         result = Image.fromarray(final[:, :, ::-1])
