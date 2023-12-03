@@ -62,7 +62,7 @@ def scan(img):
     bgdModel = np.zeros((1, 65), np.float64)
     fgdModel = np.zeros((1, 65), np.float64)
     rect = (20, 20, img.shape[1] - 20, img.shape[0] - 20)
-    cv2.grabCut(img, mask, rect, bgdModel, fgdModel, 5, cv2.GC_INIT_WITH_RECT)
+    cv2.grabCut(img, mask, rect, bgdModel, fgdModel, 10, cv2.GC_INIT_WITH_RECT)
     mask2 = np.where((mask == 2) | (mask == 0), 0, 1).astype('uint8')
     img = img * mask2[:, :, np.newaxis]
 
@@ -130,14 +130,14 @@ if uploaded_file is not None:
     h_, w_ = int(h * 400 / w), 400
 
     with col1:
-        st.title('Input')
+        st.title('原始图片')
         st.image(image, channels='BGR', use_column_width=True)
     with col2:
-        st.title('Scanned')
+        st.title('结果')
         final = scan(image)
         st.image(final, channels='BGR', use_column_width=True)
     if final is not None:
         # Display link.
         result = Image.fromarray(final[:, :, ::-1])
-        st.sidebar.markdown(get_image_download_link(result, 'output.png', 'Download ' + 'Output'),
+        st.sidebar.markdown(get_image_download_link(result, '结果.png', 'Download ' + 'Output'),
                             unsafe_allow_html=True)
