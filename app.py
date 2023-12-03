@@ -6,12 +6,6 @@ import io
 import base64
 from PIL import Image
 
-# We create a downloads directory within the streamlit static asset directory
-# and we write output files to it
-STREAMLIT_STATIC_PATH = pathlib.Path(st.__path__[0]) / 'static'
-DOWNLOADS_PATH = (STREAMLIT_STATIC_PATH / "downloads")
-if not DOWNLOADS_PATH.is_dir():
-    DOWNLOADS_PATH.mkdir()
 
 
 def order_points(pts):
