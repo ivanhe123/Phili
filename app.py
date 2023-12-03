@@ -157,8 +157,3 @@ if uploaded_file is not None:
             st.image(th3, use_column_width=True)
             blockSize = st.slider('BlockSize', 0, 100, 11)
             C = st.slider('C', 0, 100, 2)
-    if final is not None:
-        # Display link.
-        result = Image.fromarray(final[:, :, ::-1])
-        st.sidebar.markdown(get_image_download_link(result, '结果.png', 'Download ' + 'Output'),
-                            unsafe_allow_html=True)
