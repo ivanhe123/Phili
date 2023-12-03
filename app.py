@@ -139,9 +139,9 @@ if uploaded_file is not None:
         final = scan(image)
         blockSize = st.slider('BlockSize', 0, 100, 11)
         C = st.slider('C', 0, 100, 2)
-        if option = "普通"
+        if option == "普通"
             st.image(final, channels='BGR', use_column_width=True)
-        elif option = "Mean":
+        elif option == "Mean":
             final = cv2.medianBlur(final,5)
             th2 = cv2.adaptiveThreshold(final,255,cv2.ADAPTIVE_THRESH_MEAN_C,\
             cv2.THRESH_BINARY,blockfSize,C)
