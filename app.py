@@ -1,6 +1,5 @@
 import streamlit as st
 import pathlib
-from streamlit_drawable_canvas import st_canvas
 import cv2
 import numpy as np
 import io
