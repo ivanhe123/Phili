@@ -142,6 +142,7 @@ if uploaded_file is not None:
         if option == "普通":
             st.image(final, channels='BGR', use_column_width=True)
         elif option == "Mean":
+            final = cv2.cvtColor(final, cv2.COLOR_RGB2GRAY)
             final = cv2.medianBlur(final,5)
             th2 = cv2.adaptiveThreshold(final,255,cv2.ADAPTIVE_THRESH_MEAN_C,\
             cv2.THRESH_BINARY,blockSize,C)
@@ -149,6 +150,7 @@ if uploaded_file is not None:
             blockSize = st.slider('BlockSize', 0, 100, 11)
             C = st.slider('C', 0, 100, 2)
         else:
+            final = cv2.cvtColor(final, cv2.COLOR_RGB2GRAY)
             final = cv2.medianBlur(final,5)
             th3 = cv2.adaptiveThreshold(final,255,cv2.ADAPTIVE_THRESH_GAUSSIAN_C,\
             cv2.THRESH_BINARY,blockSize,C)
