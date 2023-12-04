@@ -148,7 +148,7 @@ if uploaded_file is not None:
             th2 = cv2.adaptiveThreshold(final,255,cv2.ADAPTIVE_THRESH_MEAN_C,\
             cv2.THRESH_BINARY,blockSize,C)
             st.image(th2, use_column_width=True)
-            blockSize = st.slider('扫描细节度', 0, 100, 11)
+            blockSize = st.slider('扫描粗糙度', 0, 100, 11)
             C = st.slider('滤镜大小', 0, 100, 2)
             blur = st.slider('模糊度', 0, 100, 5)
         else:
@@ -157,6 +157,6 @@ if uploaded_file is not None:
             th3 = cv2.adaptiveThreshold(final,255,cv2.ADAPTIVE_THRESH_GAUSSIAN_C,\
             cv2.THRESH_BINARY,blockSize,C)
             st.image(th3, use_column_width=True)
-            blockSize = st.slider('扫描细节度', 0, 100, 11)
+            blockSize = st.slider('扫描粗糙度', 0, 100, 11)
             C = st.slider('滤镜大小', 0, 100, 2)
             blur = st.slider('模糊度', 0, 100, 5)
